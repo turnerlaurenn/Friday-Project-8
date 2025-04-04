@@ -32,6 +32,14 @@ def delete_customer():
         try:
             cursor.execute("DELETE FROM customers WHERE id=?", (customer_id,))
             conn.commit()
+
+            # Vacuum the database to reclaim space
+            cursor.execute("VACUUM")
+            
+            # Reset the auto-increment counter to the last highest ID
+            cursor.execute("UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM customers) WHERE name = 'customers'")
+            conn.commit()
+
             messagebox.showinfo("Success", f"Customer ID {customer_id} deleted successfully.")
             populate_list()  # Refresh the list after deletion
         except sqlite3.Error as e:
