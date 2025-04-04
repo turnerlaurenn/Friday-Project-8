@@ -29,12 +29,22 @@ data_tree = ttk.Treeview(root, columns=columns, show="headings")
 # Set column headings
 for col in columns:
     data_tree.heading(col, text=col)
-    data_tree.column(col, width=100, anchor="center")  # Adjust width as needed
+    # Initial width for other columns
+    if col != "Address":
+        data_tree.column(col, width=100, anchor="center")
+    else:
+        # Let the Address column have more initial width
+        data_tree.column(col, width=250, anchor="w") # Align left for better readability
 
 # Configure scrollbars for the Treeview
 scrollbar_y = ttk.Scrollbar(root, orient="vertical", command=data_tree.yview)
 data_tree.configure(yscrollcommand=scrollbar_y.set)
 scrollbar_y.pack(side="right", fill="y")
+
+scrollbar_x = ttk.Scrollbar(root, orient="horizontal", command=data_tree.xview)
+data_tree.configure(xscrollcommand=scrollbar_x.set)
+scrollbar_x.pack(side="bottom", fill="x")
+
 data_tree.pack(padx=10, pady=10, fill="both", expand=True)
 
 # Fetch and display data when the script runs
