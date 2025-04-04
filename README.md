@@ -30,7 +30,7 @@ This project consists of the following files:
     * It fetches all data from the `customers` table and presents it with column headers for each field.
     * Horizontal and vertical scrollbars are included to allow viewing of all data, even if it exceeds the window size.
 
-5.  **`update_customer.py`**: This Python script provides a GUI for updating existing customer information in the `customerInfo.db` database.
+5.  **`updateEntries.py`**: This Python script provides a GUI for updating existing customer information in the `customerInfo.db` database.
     * Users can enter a Customer ID to load the existing data for that customer into the form.
     * The script attempts to split the stored comma-separated address back into the individual Street, City, State, and Zip Code fields for easier editing.
     * Users can modify any of the fields and click "Update Customer" to save the changes to the database.
@@ -40,14 +40,14 @@ This project consists of the following files:
 
 1.  **Ensure Python is Installed:** Make sure you have Python 3 installed on your system.
 2.  **Install Tkinter (if needed):** Tkinter is usually included with standard Python installations. If you encounter issues, you might need to install it separately.
-3.  **Place Files in the Same Directory:** Ensure all five files (`customerInfo.db`, `customerInput.py`, `deleteEntry.py`, `readDatainDB.py`, `update_customer.py`) are located in the same directory on your computer.
+3.  **Place Files in the Same Directory:** Ensure all five files (`customerInfo.db`, `customerInput.py`, `deleteEntry.py`, `readDatainDB.py`, `updateEntries.py`) are located in the same directory on your computer.
 4.  **Run the Scripts:** You can run each Python script individually from your terminal or within VS Code using the command `python filename.py`.
 
 ## Using the System
 
 1.  **`customerInput.py`**: Run this script to add new customer information.
 2.  **`readDatainDB.py`**: Run this script to view all customer entries.
-3.  **`update_customer.py`**: Run this script to modify existing customer information.
+3.  **`updateEntries.py`**: Run this script to modify existing customer information.
 4.  **`deleteEntry.py`**: Run this script to remove customer entries.
 
 ## Suitability for VS Code (Python)
