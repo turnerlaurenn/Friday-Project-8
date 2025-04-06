@@ -17,9 +17,12 @@ class UpdateCustomerWindow:
         self.id_entry.grid(row=0, column=1)
         tk.Button(master, text="Load Customer", command=self.load_customer_data).grid(row=0, column=2)
 
+        self.entry_widgets = {}
         for i, field in enumerate(["name", "birthday", "email", "phone", "address"]):
             tk.Label(master, text=f"{field.capitalize()}:").grid(row=i+1, column=0)
-            tk.Entry(master, textvariable=self.vars[field], width=30).grid(row=i+1, column=1)
+            entry = tk.Entry(master, textvariable=self.vars[field], width=30)
+            entry.grid(row=i+1, column=1)
+            self.entry_widgets[field] = entry
 
         tk.Label(master, text="Preferred Contact:").grid(row=6, column=0)
         ttk.Combobox(master, textvariable=self.vars["preferred_contact"], values=self.contact_methods, width=30).grid(row=6, column=1)
@@ -68,6 +71,13 @@ class UpdateCustomerWindow:
         conn.close()
 
         messagebox.showinfo("Success", f"Customer with ID {fields['customer_id']} updated successfully!")
+        self.clear_fields() # Call the new clear_fields method
+
+    def clear_fields(self):
+        """Clears the content of all input fields except the Customer ID."""
+        for field in ["name", "birthday", "email", "phone", "address"]:
+            self.vars[field].set("")
+        self.vars["preferred_contact"].set(self.contact_methods[0])
 
 if __name__ == "__main__":
     root = tk.Tk()
