@@ -184,7 +184,7 @@ preferred_contact_label.grid(row=8, column=0, padx=5, pady=5, sticky="w")
 contact_methods = ["Email", "Phone Number", "Mail"]
 preferred_contact_var = tk.StringVar(root)
 preferred_contact_var.set(contact_methods[0])  # Set the default value
-preferred_contact_dropdown = ttk.Combobox(root, textvariable=preferred_contact_var, values=contact_methods, width=27)
+preferred_contact_dropdown = ttk.Combobox(root, textvariable=preferred_contact_var, values=contact_methods, width=27, state="readonly")
 preferred_contact_dropdown.grid(row=8, column=1, columnspan=2, padx=5, pady=5, sticky="ew")
 
 # --- Buttons ---
