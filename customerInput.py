@@ -30,22 +30,36 @@ def create_table_if_not_exists():
             conn.close()
 
 def format_birthday(event):
-    """Automatically adds dashes to the birthday field (YYYY-MM-DD)."""
+    """Automatically adds dashes to the birthday field (YYYY-MM-DD) and limits length."""
     current_text = birthday_entry.get()
-    if len(current_text) == 4 and event.keysym.isdigit():
-        birthday_entry.insert(tk.END, "-")
-    elif len(current_text) == 7 and event.keysym.isdigit():
-        birthday_entry.insert(tk.END, "-")
+    new_text = ''.join(filter(str.isdigit, current_text))  # Keep only digits
+
+    if len(new_text) > 8:
+        new_text = new_text[:8]  # Limit to 8 digits
+
+    formatted_text = ""
+    for i, char in enumerate(new_text):
+        formatted_text += char
+        if i == 3 or i == 5:
+            formatted_text += "-"
+
+    birthday_entry.delete(0, tk.END)
+    birthday_entry.insert(0, formatted_text)
 
 def format_phone(event):
-    """Automatically adds dashes to the phone number field (XXX-XXX-XXXX)."""
+    """Automatically adds dashes to the phone number field (XXX-XXX-XXXX) and limits length."""
     current_text = phone_entry.get()
-    cleaned_text = ''.join(filter(str.isdigit, current_text))
+    cleaned_text = ''.join(filter(str.isdigit, current_text))  # Keep only digits
+
+    if len(cleaned_text) > 10:
+        cleaned_text = cleaned_text[:10]  # Limit to 10 digits
+
     formatted_text = ""
     for i, char in enumerate(cleaned_text):
         formatted_text += char
         if i == 2 or i == 5:
             formatted_text += "-"
+
     phone_entry.delete(0, tk.END)
     phone_entry.insert(0, formatted_text)
 
@@ -62,8 +76,8 @@ def submit_customer_info():
     address = f"{street}, {city}, {state} {zip_code}"
     preferred_contact = preferred_contact_var.get()
 
-    if not all([name, birthday, is_valid_email(email), is_valid_phone(phone), street, city, state, zip_code, preferred_contact]):
-        messagebox.showerror("Error", "Please fill in all fields correctly.")
+    if not all([name, len(birthday) == 10, is_valid_email(email), len(phone) == 12, street, city, state, zip_code, preferred_contact]):
+        messagebox.showerror("Error", "Please fill in all fields correctly with the proper format (YYYY-MM-DD for Birthday, XXX-XXX-XXXX for Phone).")
         return
 
     conn = sqlite3.connect("customerInfo.db")
